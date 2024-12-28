@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden md:block">
+                    {{-- <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
                             <button type="button"
                                 class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -41,8 +41,8 @@
                                 </svg>
                             </button>
                         </div>
-                    </div>
-                    <div class="-mr-2 flex md:hidden">
+                    </div> --}}
+                    {{-- <div class="-mr-2 flex md:hidden">
                         <!-- Mobile menu button -->
                         <button type="button"
                             class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -61,13 +61,21 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </button>
-                    </div>
+                    </div> --}}
                     <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="flex items-center px-5">
-                            <div class="flex-shrink-0">
-                                <img class="h-10 w-10 rounded-full" src="https://laracasts.com/images/lary-ai-face.svg"
-                                    alt="">
-                            </div>
+                            @guest
+                                <x-nav-link href="/login" :active="request()->is('login')">Log In</x-nav-link>
+                                <x-nav-link href="/register" :active="request()->is('register')">Register</x-nav-link>
+                            @endguest
+
+                            @auth
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    
+                                    <x-form-button>Log Out</x-form-button>
+                                </form>
+                            @endauth
                         </div>
                     </div>
                 </div>
